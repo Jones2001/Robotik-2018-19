@@ -10,7 +10,7 @@ import threading as th
 pygame.init()
 pygame.camera.init()
 Draw = pygame.Surface([160, 120])
-gameDisplay = pygame.display.set_mode((160, 120))
+Display = pygame.display.set_mode((160, 120))
 cam = pygame.camera.Camera("/dev/video0",(160, 120))
 cam.start()
 #----End Setup----
@@ -20,32 +20,28 @@ maxOrange = (30, 100, 100)
 #----End User Parameters-----
 #----4 Threads (= TopLeft, TopRight, BottomL, BottomR) (= Faster)----
 def FindTL(Img):
-    for y in range(60):
-        for x in range(80):
-            if(y % 2 ==  x % 2 and minOrange[0] <= Img.get_at((x, y)).hsva[0] and maxOrange[0] >= Img.get_at((x, y)).hsva[0]):  
+    for y in range(0, 60, 5):
+        for x in range(0, 80, 5):
+            if(minOrange[0] <= Img.get_at((x, y)).hsva[0] and maxOrange[0] >= Img.get_at((x, y)).hsva[0]):  
                 Draw.set_at((x, y), (255, 124, 0))
 
 def FindTR(Img):
-    for y in range(60):
-        for x in range(80):
-            x_new = x + 80
-            if(y % 2 == x_new % 2 and minOrange[0] <= Img.get_at((x_new, y)).hsva[0] and maxOrange[0] >= Img.get_at((x_new, y)).hsva[0]):
-                Draw.set_at((x_new, y), (255, 124, 0))
+    for y in range(0, 60, 5):
+        for x in range(80, 160, 5):
+            if(minOrange[0] <= Img.get_at((x, y)).hsva[0] and maxOrange[0] >= Img.get_at((x, y)).hsva[0]):
+                Draw.set_at((x, y), (255, 124, 0))
 
 def FindBL(Img):
-    for y in range(60):
-        y_new = y + 60
-        for x in range(80):
-            if(y_new % 2 == x % 2 and minOrange[0] <= Img.get_at((x, y_new)).hsva[0] and maxOrange[0] >= Img.get_at((x, y_new)).hsva[0]):  
-                Draw.set_at((x, y_new), (255, 124, 0))
+    for y in range(60 , 120, 5): 
+        for x in range(0 , 80, 5):
+            if(minOrange[0] <= Img.get_at((x, y)).hsva[0] and maxOrange[0] >= Img.get_at((x, y)).hsva[0]):  
+                Draw.set_at((x, y), (255, 124, 0))
 
 def FindBR(Img):
-    for y in range(60):
-        y_new = y + 60
-        for x in range(80):
-            x_new = x + 80
-            if(y_new % 2 == x_new % 2 and minOrange[0] <= Img.get_at((x_new, y_new)).hsva[0] and maxOrange[0] >= Img.get_at((x_new, y_new)).hsva[0]):
-                Draw.set_at((x_new, y_new), (255, 124, 0))
+    for y in range(60, 120, 5):
+        for x in range(80, 160, 5):
+            if(minOrange[0] <= Img.get_at((x, y)).hsva[0] and maxOrange[0] >= Img.get_at((x, y)).hsva[0]):
+                Draw.set_at((x, y), (255, 124, 0))
 #----End 4 Threads----
 #----Clear The Pixels from the Img----
 def Clear():
@@ -53,7 +49,7 @@ def Clear():
 #----End Clear The Pixels from the Img----
 #----Show the Img----
 def Show(Img):
-    gameDisplay.blit(Draw, (0, 0))
+    Display.blit(Draw, (0, 0))
     pygame.display.update()
 #----End Show the Img----
 #----Start the 4 Threads----

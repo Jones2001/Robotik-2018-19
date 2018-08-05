@@ -7,5 +7,8 @@ class Logger:
 		self.worksheet = worksheet
 	def write(self, row, column, content):
 		self.worksheet.write(str(row) + str(column), str(content))
+	def writeArray(self, row, content):
+		for i in range(len(content)):
+			self.worksheet.write(str(row) + str(i + 1), content[i])
 	def close(self):
 		self.workbook.close()

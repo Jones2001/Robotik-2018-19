@@ -7,4 +7,7 @@ sudo apt-get install python-dev -y
 unzip GPIO_API_for_Python.zip
 cd GPIO_API_for_Python/
 sudo python setup.py install
+sudo apt-get purge libreoffice wolfram-engine sonic-pi scratch
+sudo apt-get clean
+sudo apt-get autoremove
 sudo rm Install.sh
